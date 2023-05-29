@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom'
+
+
 function MyButtons() {
   return (
     <>
       <div className="buttons">
-        <button className="redirectButton"></button>
-        <button className="redirectButton"></button>
-        <button className="redirectButton"></button>
+      <Link to='/demarvel'><button className="redirectButton"></button></Link>
+      <Link to='/gremiurilo'><button className="redirectButton"></button></Link>
+      <Link to='/csgui'><button className="redirectButton"></button></Link>
       </div>
     </>
   );
