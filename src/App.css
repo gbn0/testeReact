@@ -5,15 +5,8 @@
 
 body {
   height: 100vh;
-}
-
-header {
-  background: pink;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 30px;
+  background-color: rgb(62,59,59);
+  overflow-y: hidden;
 }
 
 .buttons {
@@ -36,10 +29,17 @@ button {
   height: 20px;
   background: transparent;
 }
-
 .redirectButton {
-  background: black;
+  display:block;  
+  background: transparent;
   width: 300px;
   height: 100px;
   margin: 50px;
+}
+
+
+
+.redirectButton img {
+  width: 300px;
+  height: 100px;
 }

@@ -3,9 +3,9 @@ import MyButton from "./MyButton";
 function HomePage() {
   return (
     <>
-      <main>
+      <div>
         <MyButton />
-      </main>
+      </div>
     </>
   );
 }
