@@ -15,6 +15,50 @@ function CSGui() {
     setUsers(users.data);
   }
 
+  async function deleteUsers(event: any) {
+    let div = event;
+    if(event.target.nodeName === 'BUTTON') {
+        div = event.target.parentNode;
+    }else {
+        div = event.target.parentNode.parentNode;
+    }
+    
+    const key = div.getAttribute('data-key');
+
+    await axios.delete('http://localhost:5000/', {
+            data: {
+                id: +key,
+            }
+    })
+    getUsers();
+}
+
+async function updateUsers(event: any) {
+  let div = event;
+  if(event.target.nodeName === 'BUTTON') {
+      div = event.target.parentNode;
+  }else {
+      div = event.target.parentNode.parentNode;
+  }
+  
+  const key = +div.getAttribute('data-key');
+
+  const nameText = div.children[0].value.toString();
+  const gunText = div.children[1].value.toString();
+  const mapText = div.children[2].value.toString();
+  const skinText = div.children[3].value.toString();
+  
+  await axios.put('http://localhost:5000/', {
+      data: {
+          id: key,
+          nick: nameText,
+          gun: gunText,
+          map: mapText,
+          skin: skinText
+      }
+  })
+}
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -43,39 +87,39 @@ function CSGui() {
 
         <div className="data">
           {users.map((user, index) => (
-            <div className="child" key={index}>
+            <div className="child" key={index} data-key={user.id}>
               <textarea
                 spellCheck={false}
                 className="nick"
                 cols={1}
                 rows={1}
-                value={user.nick}
+                defaultValue={user.nick}
               ></textarea>
               <textarea
                 spellCheck={false}
                 className="gun"
                 cols={1}
                 rows={1}
-                value={user.gun}
+                defaultValue={user.gun}
               ></textarea>
               <textarea
                 spellCheck={false}
                 className="map"
                 cols={1}
                 rows={1}
-                value={user.map}
+                defaultValue={user.map}
               ></textarea>
               <textarea
                 spellCheck={false}
                 className="skin"
                 cols={1}
                 rows={1}
-                value={user.skin}
+                defaultValue={user.skin}
               ></textarea>
-              <button className="updateBtn">
+              <button onClick={updateUsers} className="updateBtn">
                 <img src={updateImg} alt="" className="updateImg" />
               </button>
-              <button className="deleteBtn">
+              <button onClick={deleteUsers} className="deleteBtn">
                 <img src={trashcanImg} alt="" className="trashcanImg" />
               </button>
             </div>

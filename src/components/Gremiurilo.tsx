@@ -15,6 +15,24 @@ function Gremiurilo() {
     setUsers(users.data);
   }
 
+  async function deleteUsers(event: any) {
+    let div = event;
+    if(event.target.nodeName === 'BUTTON') {
+        div = event.target.parentNode;
+    }else {
+        div = event.target.parentNode.parentNode;
+    }
+    
+    const key = div.getAttribute('data-key');
+
+    await axios.delete('http://localhost:5000/', {
+            data: {
+                id: +key,
+            }
+    })
+    getUsers();
+}
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -42,33 +60,33 @@ function Gremiurilo() {
 
         <div className="data">
           {users.map((user, index) => (
-            <div className="child" key={index}>
+            <div className="child" key={index} data-key={user.id}>
               <textarea
                 spellCheck={false}
                 className="name"
                 cols={1}
                 rows={1}
-                value={user.nick}
+                defaultValue={user.nick}
               ></textarea>
               <textarea
                 spellCheck={false}
                 className="player"
                 cols={1}
                 rows={1}
-                value={user.gun}
+                defaultValue={user.gun}
               ></textarea>
               <textarea
                 spellCheck={false}
                 className="title"
                 cols={1}
                 rows={1}
-                value={user.map}
+                defaultValue={user.map}
               ></textarea>
               <button className="updateBtn">
                 <img src={updateImg} alt="" className="updateImg" />
               </button>
               <button className="deleteBtn">
-                <img src={trashcanImg} alt="" className="trashcanImg" />
+                <img onClick={deleteUsers} src={trashcanImg} alt="" className="trashcanImg" />
               </button>
             </div>
           ))}
