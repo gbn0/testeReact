@@ -15,6 +15,24 @@ function DeMarvel() {
         setUsers(users.data);
     }
 
+    async function deleteUsers(event: any) {
+        let div = event;
+        if(event.target.nodeName === 'BUTTON') {
+            div = event.target.parentNode;
+        }else {
+            div = event.target.parentNode.parentNode;
+        }
+        
+        const key = div.getAttribute('data-key');
+
+        const user = await axios.delete('http://localhost:5000/', {
+                data: {
+                    id: +key,
+                }
+        })
+        getUsers();
+    }
+
     useEffect(() => {
         getUsers();
       }, []);
@@ -38,25 +56,16 @@ function DeMarvel() {
                 
                 <div className="data">
                 {users.map((user, index) => (
-                <div className="child" key={index}>
-                    <textarea spellCheck={false} className="name" cols={1} rows={1} value={user.nick}></textarea>
-                    <textarea spellCheck={false} className="movie" cols={1} rows={1} value={user.gun}></textarea>
-                    <textarea spellCheck={false} className="hero" cols={1} rows={1} value={user.map}></textarea>
+                <div className="child" key={index} data-key={user.id}>
+                    <textarea spellCheck={false} className="name" cols={1} rows={1} defaultValue={user.nick}></textarea>
+                    <textarea spellCheck={false} className="movie" cols={1} rows={1} defaultValue={user.gun}></textarea>
+                    <textarea spellCheck={false} className="hero" cols={1} rows={1} defaultValue={user.map}></textarea>
                     <button className="updateBtn"><img src={updateImg} alt="" className="updateImg" /></button>
-                    <button className="deleteBtn"><img src={trashcanImg} alt="" className="trashcanImg" /></button>
+                    <button className="deleteBtn" onClick={deleteUsers}><img src={trashcanImg} alt="" className="trashcanImg" /></button>
                 </div>
           ))}
                 </div>
 
-                {/* <template className='template' >
-                    <div className='child'>
-                        <textarea className='name' cols={1} rows={1}></textarea>
-                        <textarea className='movie' cols={1} rows={1}></textarea>
-                        <textarea className='hero' cols={1} rows={1}></textarea>
-                        <button><img src={updateImg} alt="" className="updateImg"/></button>
-                        <button><img src={trashcanImg} alt="" className="trashcanImg"/></button>
-                    </div>
-                </template> */}
             </main>
         </>
     )
