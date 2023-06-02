@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background-color: rgb(62,59,59);
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  font-family: 'Montserrat', sans-serif;
+}
+
+#root {
+  width: 70%;
+}
+
+
+header {
+  display:flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+}
+
+.headerButtons{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.createBtn {
+  width: 130px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: rgb(53,186,31);
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-weight: bold;
+}
+
+.csgui {
+  width: 200px;
+  margin-left: 20rem;
+}
+
+main {
+  width: 100%;
+  background-color: rgb(38,38,38);
+  display:flex;
+  flex-direction: column;
+  height: 30rem;
+  padding: 1rem;
+  border-radius: 2rem;
+}
+
+.texts {
+  width: 100%;
+  display:flex;
+  justify-content:space-evenly;
+
+}
+.nickText {
+  margin-left: 3rem;
+}
+
+.favouriteGun{
+  margin-left: 4rem;
+}
+
+.favouriteMap {
+  margin-left: 0rem;
+}
+
+
+p {
+  font-size: 1.5rem;
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+  padding: 0.3rem;    
+}
+
+.refreshBtn {
+  background: transparent;
+  width: 40px;
+  height: 40px;
+}
+
+.refreshImg, .trashcanImg, .updateImg {
+  width: 20px;
+  height: 20px;
+  transition: 250ms;
+}
+
+@keyframes rotate {
+  from {
+      transform: rotate(0deg);
+  }
+
+  to {
+      transform: rotate(-359deg);
+  }
+}
+
+.refreshImg:hover {
+  animation: rotate 1s;
+}
+textarea {
+  width: 30%;
+  padding: 10px;
+  text-align: center;
+  vertical-align: center;
+  text-decoration: none;
+  background: transparent;
+  margin-top: 10px;
+  resize: none;
+  color: white;
+  border: 3px solid;
+}
+.child {
+  display:flex;
+  justify-content: space-between;
+}
+
+.child button {
+  background: transparent;
+}
+
+.nick {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.skin {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.updateImg, .updateBtn {
+  margin-left: .8rem;
+  margin-top: 4px;
+  margin-right: 1rem;    
+}
+
+.trashcanImg, .deleteBtn {
+  margin-top: 4px;
+}
