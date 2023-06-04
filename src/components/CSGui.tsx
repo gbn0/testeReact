@@ -5,15 +5,52 @@ import csguiImg from "../assets/csgui.svg";
 import refreshImg from "../assets/refresh.svg";
 import trashcanImg from "../assets/trashcan.svg";
 import updateImg from "../assets/update.svg";
+import checkImg from '../assets/correct.png'
+import cancelImg from '../assets/delete.png'
 import axios from "axios";
 
 function CSGui() {
   const [users, setUsers] = useState([]);
+  const [newUser, setNewUser] = useState({});
 
   async function getUsers() {
     const users = await axios.get("http://localhost:5000/");
     setUsers(users.data);
   }
+
+  function createNewUser() {
+    setNewUser({id: 1});
+}
+
+async function postUser(event: any) {
+    let div = event;
+    if(event.target.nodeName === 'BUTTON') {
+        div = event.target.parentNode;
+    }else {
+        div = event.target.parentNode.parentNode;
+    }
+
+    const nameText = div.children[0].value.toString();
+    const gunText = div.children[1].value.toString();
+    const mapText = div.children[2].value.toString();
+    const skinText = div.children[3].value.toString();
+
+    await axios.post('http://localhost:5000/', {
+        data: {
+            nick: nameText,
+            gun: gunText,
+            map: mapText,
+            skin: skinText
+        }
+    })
+
+    getUsers();
+
+}
+
+function stopCreate() {
+    setNewUser({});
+}
 
   async function deleteUsers(event: any) {
     let div = event;
@@ -47,6 +84,11 @@ async function updateUsers(event: any) {
   const gunText = div.children[1].value.toString();
   const mapText = div.children[2].value.toString();
   const skinText = div.children[3].value.toString();
+
+  if(!nameText || !gunText || !mapText || skinText) {
+    alert('É necessário preencher todos os campos!');
+    return;
+}
   
   await axios.put('http://localhost:5000/', {
       data: {
@@ -124,17 +166,20 @@ async function updateUsers(event: any) {
               </button>
             </div>
           ))}
-        </div>
-
-        {/* <template className='template' >
-                    <div className='child'>
-                        <textarea className='name' cols={1} rows={1}></textarea>
-                        <textarea className='movie' cols={1} rows={1}></textarea>
-                        <textarea className='hero' cols={1} rows={1}></textarea>
-                        <button><img src={updateImg} alt="" className="updateImg"/></button>
-                        <button><img src={trashcanImg} alt="" className="trashcanImg"/></button>
+          {Object.keys(newUser).length === 0 ? null : (
+                    <div className="child">
+                        <textarea spellCheck={false} className="name" cols={1} rows={1} defaultValue={''}></textarea>
+                        <textarea spellCheck={false} className="movie" cols={1} rows={1} defaultValue={''}></textarea>
+                        <textarea spellCheck={false} className="hero" cols={1} rows={1} defaultValue={''}></textarea>
+                        <button className="updateBtn" onClick={postUser}>
+                        <img src={checkImg} alt="" className="updateImg" />
+                        </button>
+                        <button className="deleteBtn" onClick={stopCreate}>
+                        <img src={cancelImg} alt="" className="trashcanImg" />
+                        </button>
                     </div>
-                </template> */}
+                )}
+        </div>
       </main>
     </>
   );
