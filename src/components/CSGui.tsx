@@ -35,6 +35,11 @@ async function postUser(event: any) {
     const mapText = div.children[2].value.toString();
     const skinText = div.children[3].value.toString();
 
+    if(!nameText || !gunText || !mapText || skinText) {
+      alert('É necessário preencher todos os campos!');
+      return;
+  }
+
     await axios.post('http://localhost:5000/', {
         data: {
             nick: nameText,
@@ -45,6 +50,7 @@ async function postUser(event: any) {
     })
 
     getUsers();
+    setNewUser({});
 
 }
 
@@ -84,11 +90,6 @@ async function updateUsers(event: any) {
   const gunText = div.children[1].value.toString();
   const mapText = div.children[2].value.toString();
   const skinText = div.children[3].value.toString();
-
-  if(!nameText || !gunText || !mapText || skinText) {
-    alert('É necessário preencher todos os campos!');
-    return;
-}
   
   await axios.put('http://localhost:5000/', {
       data: {
